@@ -3,7 +3,7 @@ left_column = []
 right_column = []
 
 # Read and process the data from input.txt
-with open('input.txt', 'r') as file:
+with open('Day1/input.txt', 'r') as file:
   for line in file:
     # Skip empty lines
     if line.strip():
