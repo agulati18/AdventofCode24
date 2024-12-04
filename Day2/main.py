@@ -17,13 +17,13 @@ Examples:
 # Reading in the data from input.txt
 # Step 1: Split the text into lines
 lines = open("Day2/input2.txt").read().strip().splitlines()
-# Step 2: Process each line
+# Step 2: Process each line, converting each line from a string into an integer. Stored in data, which is a list of lists.
 data = [list(map(int, line.split())) for line in lines]
 # Output the processed data
-print(data)
+#print(data)
 is_safe = 0
 
-
+# Number of Safe Reports (puzzle 1) 
 def is_safe_report(levels):
   # Check Monotoicity
   # Check if all items in the list are Increasing:
@@ -44,9 +44,42 @@ def is_safe_report(levels):
 
   return True
 
-
 # Output the processed data
 for line in data:
   if is_safe_report(line):
     is_safe += 1
-print(is_safe)
+#print(is_safe)
+
+# Dampener (Puzzle 2)
+'''
+Same rules apply as before, except if removing a single level from an unsafe report would make it safe, the report instead counts as safe.
+
+Examples:
+7 6 4 2 1: Safe without removing any level.
+1 2 7 8 9: Unsafe regardless of which level is removed.
+9 7 6 2 1: Unsafe regardless of which level is removed.
+1 3 2 4 5: Safe by removing the second level, 3.
+8 6 4 4 1: Safe by removing the third level, 4.
+1 3 6 7 9: Safe without removing any level.
+'''
+
+def can_be_made_safe(levels):
+    # First check if the report is already safe
+    if is_safe_report(levels):
+        return True
+    
+    # Try removing one number at a time and check if it becomes safe
+    for i in range(len(levels)):
+        # Create a new list without the current number
+        levels_without_current_index = levels[:i] + levels[i+1:]
+        
+        # If removing this number makes the report safe, return True
+        if is_safe_report(levels_without_current_index):
+            return True
+            
+    # If we couldn't make it safe by removing any single number
+    return False
+
+# Count how many reports can be made safe
+safe_count = sum(1 for line in data if can_be_made_safe(line))
+print(safe_count)
