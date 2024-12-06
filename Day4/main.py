@@ -61,11 +61,3 @@ def find_xmas(grid):
 
 
 print(len(find_xmas(grid)))
-'''
-Notes to Self
-
-At each index in the grid, look horizontally, vertically, diagonally, and backwards for the word XMAS. If not applicable, replace the current index with a '.' and move to next index
-
-At the element you're currently looking at, look in each of the 8 possible directions (if applicable)). If the word is found, return True. If not, return False. For example for an x in the [0][0] element of the grid, I can only look rightwards, downwards, and right diagonally.
-
-'''
